@@ -1,0 +1,91 @@
+const initialText = `
+  # Heading
+  ## Sub-heading
+  **Bold Text**
+  This is a paragraph.
+  - list item 1
+  - list item 2
+  - list item 3
+  > This is a blockquote
+  [This is a link to freeCodeCamp](https://www.freecodecamp.org/)
+  This is an inline \`<div></div>\`
+  This is a block of code
+  \`\`\`
+    let x = 1,
+    y = 2,
+    z = x + y;
+    console.log(z);
+  \`\`\`
+  ![React](https://goo.gl/Umyytc)
+`;
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      text: initialText
+    };
+  }
+
+  handleInputChange = (event) => {
+    this.setState({
+      text: event.target.value
+    });
+  };
+
+  render() {
+    const { text } = this.state;
+    const markedownText = marked(text, { breaks: true });
+
+    return (
+      <div className="container">
+        <div className="heading">MARKDOWN PREVIEWER</div>
+        <div className="sub-heading">
+          Write your markdown text input in left box and you can view what it
+          actually looks like in right box.
+        </div>
+        <div className="markdown">
+          <div className="markdown-section">
+            <div className="section-title">Markdown Input</div>
+            <div className="input-area">
+              <textarea
+                id="editor"
+                onChange={this.handleInputChange}
+                value={text}
+              ></textarea>
+            </div>
+          </div>
+          <div className="markdown-section">
+            <div className="section-title">Markdown Result</div>
+            <div className="output-area">
+              <span
+                id="preview"
+                dangerouslySetInnerHTML={{ __html: markedownText }}
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div className="footer">
+          <div className="copyrights">&copy;&nbsp; Shubham Tiwari 2020</div>
+          <div className="links">
+            <a
+              class="fa fa-github link-icon"
+              aria-hidden="true"
+              href="https://github.com/STiwari1097"
+              target="_blank"
+            ></a>
+            <a
+              class="fa fa-codepen link-icon"
+              aria-hidden="true"
+              href="https://codepen.io/_STiwari"
+              target="_blank"
+            ></a>
+            <a class="fa fa-linkedin link-icon" aria-hidden="true"></a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("app"));
