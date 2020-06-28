@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: white;
+  line-height: 1.6;
+  font-family: "Nunito", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+#quote-box {
+  width: 80%;
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem 4rem;
+  background-color: #05386b;
+  box-shadow: 0 0 5px #888;
+  border-radius: 12px;
+}
+
+.box-title {
+  margin-bottom: 1rem;
+  color: #7395ae;
+  text-align: center;
+  font-family: "Paytone One", sans-serif;
+  font-size: 2.5rem;
+}
+
+.box-title .full-stop {
+  color: #f13c20;
+  font-weight: bold;
+}
+
+.divider {
+  border: 0.5px solid #7395ae;
+  margin-bottom: 1.5rem;
+}
+
+.loading-text {
+  color: white;
+  font-family: "Paytone One", sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.quote-content {
+  min-height: 150px;
+}
+
+.quote-content #text {
+  margin-bottom: 1rem;
+  color: white;
+  text-align: center;
+  font-family: "Lora", serif;
+  font-size: 1rem;
+}
+
+.quote-content #author {
+  margin-bottom: 1.5rem;
+  color: #7395ae;
+  text-align: end;
+  font-family: "Lora", serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons #tweet-quote {
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background-color: #7395ae;
+  color: white;
+  font-size: 1rem;
+  border-bottom: 0.5px solid white;
+}
+
+.buttons #tweet-quote:hover {
+  border-bottom: 3px solid #f13c20;
+}
+
+.buttons #new-quote {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  background-color: #f13c20;
+  color: white;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #f13c20;
+  border-radius: 4px;
+}
+
+.footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer .copyrights,
+.footer .links {
+  color: #05386b;
+  font-size: 1.5rem;
+}
+
+.link-icon {
+  color: #05386b;
+  padding: 0.25rem 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+  #quote-box {
+    margin: 3rem auto;
+    padding: 1rem 2rem;
+  }
+
+  .box-title {
+    font-size: 1.75rem;
+  }
+
+  .loading-text {
+    font-size: 1rem;
+  }
+
+  .quote-content {
+    min-height: 100px;
+  }
+
+  .quote-content #text {
+    font-size: 0.75rem;
+  }
+
+  .quote-content #author {
+    font-size: 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .buttons #tweet-quote {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .buttons #new-quote {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer .copyrights,
+  .footer .links {
+    font-size: 1rem;
+  }
+}

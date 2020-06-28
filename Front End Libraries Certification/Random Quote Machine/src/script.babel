@@ -1,0 +1,115 @@
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loadingQuotes: true,
+      hasError: false,
+      quotes: [],
+      index: 0
+    };
+  }
+
+  componentDidMount() {
+    fetch("https://type.fit/api/quotes")
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState(
+          {
+            loadingQuotes: false,
+            hasError: false,
+            quotes: data
+          },
+          this.showNextQuote
+        );
+      })
+      .catch((err) => {
+        this.setState({
+          loadingQuotes: false,
+          hasError: true
+        });
+      });
+  }
+
+  showNextQuote = () => {
+    const { quotes } = this.state;
+    const randomIndex = Math.floor(Math.random() * this.state.quotes.length);
+    if (quotes.length > 0) {
+      this.setState({
+        index: randomIndex
+      });
+    }
+  };
+
+  render() {
+    const { loadingQuotes, hasError, quotes, index } = this.state;
+    let content = (
+      <div className="loading-text">Loading..&nbsp;&nbsp;Please wait!</div>
+    );
+    if (!loadingQuotes) {
+      if (hasError) {
+        content = (
+          <div className="loading-text">
+            Error loading quotes&nbsp;
+            <span className="fa fa-frown-o" aria-hidden="true"></span>
+          </div>
+        );
+      } else {
+        content = (
+          <>
+            <div className="quote-content">
+              <div id="text">"{quotes[index].text}"</div>
+              <div id="author">
+                - {quotes[index].author ? quotes[index].author : "Anonymous"}
+              </div>
+            </div>
+            <div className="buttons">
+              <a
+                id="tweet-quote"
+                href="https://twitter.com/intent/tweet"
+                target="_blank"
+              >
+                <span class="fa fa-twitter"></span>
+                &nbsp;Share this quote
+              </a>
+              <button id="new-quote" onClick={this.showNextQuote}>
+                New Quote
+              </button>
+            </div>
+          </>
+        );
+      }
+    }
+    return (
+      <>
+        <div id="quote-box">
+          <div className="box-title">
+            Random Quote Machine
+            <span className="full-stop">.</span>
+          </div>
+          <hr className="divider" />
+          {content}
+        </div>
+        <div className="footer">
+          <div className="copyrights">&copy;&nbsp; Shubham Tiwari 2020</div>
+          <div className="links">
+            <a
+              class="fa fa-github link-icon"
+              aria-hidden="true"
+              href="https://github.com/STiwari1097"
+              target="_blank"
+            ></a>
+            <a
+              class="fa fa-codepen link-icon"
+              aria-hidden="true"
+              href="https://codepen.io/_STiwari"
+              target="_blank"
+            ></a>
+            <a class="fa fa-linkedin link-icon" aria-hidden="true"></a>
+          </div>
+        </div>
+      </>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("app"));
