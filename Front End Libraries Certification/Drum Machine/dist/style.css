@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #984b43;
+  color: #233237;
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+#drum-machine {
+  max-width: 1280px;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.app-title {
+  margin: 3rem 0;
+  text-align: center;
+  font-family: Montserrat Subrayada, "sans-serif";
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+#display {
+  border: 2px solid #233237;
+  width: 50%;
+  margin: 1rem auto;
+  overflow: hidden;
+}
+@media screen and (max-width: 640px) {
+  #display {
+    width: 80%;
+  }
+}
+#display .drum-pads {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#display .drum-pads .drum-pad {
+  height: 70px;
+  width: 70px;
+  text-align: center;
+  line-height: 70px;
+  margin: 1rem;
+  border-radius: 5px;
+  background-color: white;
+  color: #565656;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+@media screen and (max-width: 640px) {
+  #display .drum-pads .drum-pad {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    margin: 0.5rem;
+    font-size: 1rem;
+  }
+}
+#display .drum-pads .drum-pad.active {
+  background-color: #eac67a;
+  font-weight: bold;
+  color: #984b43;
+  transition: all 0.5s ease;
+}
+#display .currently-playing {
+  text-align: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+@media screen and (max-width: 640px) {
+  #display .currently-playing {
+    font-size: 8px;
+  }
+}
+
+.footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer .copyrights,
+.footer .links {
+  color: #eac67a;
+  font-size: 1.5rem;
+}
+.footer .link-icon {
+  color: #eac67a;
+  padding: 0.25rem 0.5rem;
+}
+@media screen and (max-width: 640px) {
+  .footer .copyrights,
+  .footer .links {
+    font-size: 1rem;
+  }
+}
