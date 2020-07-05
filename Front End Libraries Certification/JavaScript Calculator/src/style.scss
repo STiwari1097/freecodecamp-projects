@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Ubuntu, "sans-serif";
+}
+
+a {
+  text-decoration: none;
+}
+
+%btn-shared {
+  border: 2px solid black;
+  font-size: 32px;
+  cursor: pointer;
+  outline: none;
+  @media screen and (max-width: 640px) {
+    font-size: 16px;
+  }
+}
+
+.container {
+  width: 500px;
+  margin: 40px auto;
+  padding: 16px 40px;
+  background: #7dce94;
+  border: 2px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .heading,
+  .sub-heading {
+    text-align: center;
+    margin-bottom: 8px 0;
+    color: #00303f;
+  }
+
+  .screen {
+    background: white;
+    padding: 8px;
+    margin: 16px 0;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: right;
+
+    #display {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .button,
+    .ac-button {
+      @extend %btn-shared;
+      width: 70px;
+      height: 70px;
+      margin: 8px;
+      border-radius: 50%;
+      color: white;
+      background-color: #00303f;
+      @media screen and (max-width: 640px) {
+        width: 40px;
+        height: 40px;
+        margin: 4px;
+      }
+    }
+
+    .ac-button {
+      background-color: #eb1736;
+    }
+
+    .equal-button {
+      @extend %btn-shared;
+      width: 90%;
+      height: 70px;
+      margin: 8px;
+      border-radius: 70px;
+      font-size: 64px;
+      color: white;
+      background-color: #00303f;
+      @media screen and (max-width: 640px) {
+        height: 40px;
+        margin: 4px;
+        font-size: 32px;
+      }
+    }
+
+    .operator-button {
+      @extend %btn-shared;
+      width: 160px;
+      height: 70px;
+      margin: 4px;
+      border-radius: 35px;
+      font-size: 48px;
+      background-color: orange;
+      @media screen and (max-width: 640px) {
+        width: 80px;
+        height: 40px;
+        margin: 4px;
+        font-size: 24px;
+      }
+    }
+  }
+  @media screen and (max-width: 640px) {
+    width: 240px;
+    margin: 20px auto;
+    padding: 12px;
+    background: #7dce94;
+    border: 2px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
+
+.footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .copyrights,
+  .links {
+    color: #7dce94;
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .link-icon {
+    color: #7dce94;
+    padding: 4px 8px;
+  }
+
+  @media screen and (max-width: 640px) {
+    .copyrights,
+    .links {
+      font-size: 24px;
+    }
+  }
+}

@@ -1,0 +1,147 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Ubuntu, "sans-serif";
+}
+
+a {
+  text-decoration: none;
+}
+
+.container .buttons .button,
+.container .buttons .ac-button, .container .buttons .equal-button, .container .buttons .operator-button {
+  border: 2px solid black;
+  font-size: 32px;
+  cursor: pointer;
+  outline: none;
+}
+@media screen and (max-width: 640px) {
+  .container .buttons .button,
+  .container .buttons .ac-button, .container .buttons .equal-button, .container .buttons .operator-button {
+    font-size: 16px;
+  }
+}
+
+.container {
+  width: 500px;
+  margin: 40px auto;
+  padding: 16px 40px;
+  background: #7dce94;
+  border: 2px solid black;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.container .heading,
+.container .sub-heading {
+  text-align: center;
+  margin-bottom: 8px 0;
+  color: #00303f;
+}
+.container .screen {
+  background: white;
+  padding: 8px;
+  margin: 16px 0;
+  border: 2px solid black;
+  border-radius: 5px;
+  text-align: right;
+}
+.container .screen #display {
+  font-size: 20px;
+  font-weight: bold;
+}
+.container .buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.container .buttons .button,
+.container .buttons .ac-button {
+  width: 70px;
+  height: 70px;
+  margin: 8px;
+  border-radius: 50%;
+  color: white;
+  background-color: #00303f;
+}
+@media screen and (max-width: 640px) {
+  .container .buttons .button,
+  .container .buttons .ac-button {
+    width: 40px;
+    height: 40px;
+    margin: 4px;
+  }
+}
+.container .buttons .ac-button {
+  background-color: #eb1736;
+}
+.container .buttons .equal-button {
+  width: 90%;
+  height: 70px;
+  margin: 8px;
+  border-radius: 70px;
+  font-size: 64px;
+  color: white;
+  background-color: #00303f;
+}
+@media screen and (max-width: 640px) {
+  .container .buttons .equal-button {
+    height: 40px;
+    margin: 4px;
+    font-size: 32px;
+  }
+}
+.container .buttons .operator-button {
+  width: 160px;
+  height: 70px;
+  margin: 4px;
+  border-radius: 35px;
+  font-size: 48px;
+  background-color: orange;
+}
+@media screen and (max-width: 640px) {
+  .container .buttons .operator-button {
+    width: 80px;
+    height: 40px;
+    margin: 4px;
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .container {
+    width: 240px;
+    margin: 20px auto;
+    padding: 12px;
+    background: #7dce94;
+    border: 2px solid black;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
+
+.footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer .copyrights,
+.footer .links {
+  color: #7dce94;
+  font-size: 32px;
+  font-weight: bold;
+}
+.footer .link-icon {
+  color: #7dce94;
+  padding: 4px 8px;
+}
+@media screen and (max-width: 640px) {
+  .footer .copyrights,
+  .footer .links {
+    font-size: 24px;
+  }
+}
