@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #73aaba;
+    font-family: "Ubuntu", sans-serif;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+}
+
+%block-styles {
+    background-color: #225170;
+    color: white;
+    padding: 0.5rem;
+    width: 48%;
+    border-radius: 15px;
+}
+
+%inc-dec-button-styles {
+    padding: 4px 8px;
+    margin: 0 4px;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container {
+    width: 70%;
+    max-width: 480px;
+    min-width: 320px;
+    height: auto;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #ef4c7d;
+    border-radius: 20px;
+    box-shadow: 0 10px 10px -5px #333;
+
+    .title {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .sub-title {
+        text-align: center;
+        margin-bottom: 1rem;
+        padding: 8px 0;
+        background-color: #73aaba;
+        color: white;
+        border-radius: 10px;
+    }
+
+    .display-blocks {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        padding: 0.5rem 1rem;
+
+        .break-block {
+            @extend %block-styles;
+
+            #break-label,
+            .break-time {
+                text-align: center;
+                margin-bottom: 0.5rem;
+
+                #break-increment,
+                #break-decrement {
+                    @extend %inc-dec-button-styles;
+                }
+            }
+        }
+
+        .session-block {
+            @extend %block-styles;
+            #session-label,
+            .session-time {
+                text-align: center;
+                margin-bottom: 0.5rem;
+
+                #session-increment,
+                #session-decrement {
+                    @extend %inc-dec-button-styles;
+                }
+            }
+        }
+    }
+
+    .timer {
+        text-align: center;
+        margin: 2rem;
+        padding: 1rem;
+        border: 10px solid rgba(0, 0, 0, 0.25);
+        border-radius: 50px;
+
+        #time-left {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        #start_stop,
+        #reset {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 1rem;
+            background-color: #225170;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+    }
+}
+
+.footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .copyrights,
+  .links {
+    color: black;
+    font-size: 1.5rem;
+
+    .link-icon {
+      color: black;
+      padding: 0.25rem 1rem;
+    }
+  }
+}

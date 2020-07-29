@@ -1,0 +1,229 @@
+const DEFAULTS = {
+    breakLength: 5,
+    sessionLength: 25,
+    timeLeft: 25 * 60
+};
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            breakLength: DEFAULTS.breakLength,
+            sessionLength: DEFAULTS.sessionLength,
+            timeLeft: DEFAULTS.timeLeft,
+            timer: null,
+            isClockTicking: false,
+            currentLoop: "session"
+        };
+    }
+
+    resetClickHandler = () => {
+        this.audioBeep.pause();
+        this.audioBeep.currentTime = 0;
+        this.setState({
+            breakLength: DEFAULTS.breakLength,
+            sessionLength: DEFAULTS.sessionLength,
+            timeLeft: DEFAULTS.timeLeft,
+            currentLoop: "session"
+        }, () => this.toggleTimer(true));
+    };
+
+    formatTimeLeft = (timeInSec) => {
+        let minutes = Math.floor(timeInSec / 60);
+        let seconds = timeInSec - minutes * 60;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        return minutes + ":" + seconds;
+    };
+
+    updateBreakLength = (op) => {
+        const {
+            isClockTicking
+        } = this.state;
+        if (!isClockTicking) {
+            if (op === "inc") {
+                this.setState(oldState => {
+                    let newTimeLeft = oldState.timeLeft;
+                    if (oldState.currentLoop === 'break') {
+                        newTimeLeft = oldState.breakLength >= 60 ? 3600 : Number(oldState.breakLength + 1) * 60;
+                    }
+                    return {
+                        breakLength: oldState.breakLength >= 60 ? oldState.breakLength : oldState.breakLength + 1,
+                        timeLeft: newTimeLeft
+                    }
+                });
+            } else if (op === "dec") {
+                this.setState(oldState => {
+                    let newTimeLeft = oldState.timeLeft;
+                    if (oldState.currentLoop === 'break') {
+                        newTimeLeft = oldState.breakLength <= 1 ? 60 : Number(oldState.breakLength - 1) * 60;
+                    }
+                    return {
+                        breakLength: oldState.breakLength <= 1 ? oldState.breakLength : oldState.breakLength - 1,
+                        timeLeft: newTimeLeft
+                    }
+                });
+            }
+        }
+    };
+
+    updateSessionLength = (op) => {
+        const {
+            isClockTicking
+        } = this.state;
+        if (!isClockTicking) {
+            if (op === "inc") {
+                this.setState(oldState => {
+                    let newTimeLeft = oldState.timeLeft;
+                    if (oldState.currentLoop === 'session') {
+                        newTimeLeft = oldState.sessionLength >= 60 ? 3600 : Number(oldState.sessionLength + 1) * 60;
+                    }
+                    return {
+                        sessionLength: oldState.sessionLength >= 60 ? oldState.sessionLength : oldState.sessionLength + 1,
+                        timeLeft: newTimeLeft
+                    }
+                });
+            } else if (op === "dec") {
+                this.setState(oldState => {
+                    let newTimeLeft = oldState.timeLeft;
+                    if (oldState.currentLoop === 'session') {
+                        newTimeLeft = oldState.sessionLength <= 1 ? 60 : Number(oldState.sessionLength - 1) * 60;
+                    }
+                    return {
+                        sessionLength: oldState.sessionLength <= 1 ? oldState.sessionLength : oldState.sessionLength - 1,
+                        timeLeft: newTimeLeft
+                    }
+                });
+            }
+        }
+    }
+
+    toggleTimer = (reset = false) => {
+        let {
+            timer,
+            isClockTicking
+        } = this.state;
+        if (!isClockTicking && !reset) {
+            timer = setInterval(() => {
+                this.setState((oldState) => {
+                    if (oldState.timeLeft <= 0) {
+                        this.setState(oldState => {
+                            let newTime, newLoop;
+                            if (oldState.currentLoop === "session") {
+                                newTime = Number(oldState.breakLength) * 60;
+                                newLoop = "break";
+                            } else {
+                                newTime = Number(oldState.sessionLength) * 60;
+                                newLoop = "session";
+                            }
+                            return {
+                                timeLeft: newTime,
+                                currentLoop: newLoop
+                            }
+                        }, () => this.audioBeep.play());
+                    }
+                    return { timeLeft: oldState.timeLeft - 1 };
+                });
+            }, 1000);
+            this.setState({ isClockTicking: true, timer: timer });
+        } else {
+            clearInterval(timer);
+            this.setState({ isClockTicking: false, timer: null });
+        }
+    };
+
+    render() {
+        const {
+            breakLength,
+            sessionLength,
+            timeLeft,
+            timer,
+            isClockTicking,
+            currentLoop
+        } = this.state;
+        return (
+            <>
+                <div className="container">
+                    <h1 className="title">POMODORO CLOCK</h1>
+                    <h3 className="sub-title">Manage Your Time Well</h3>
+                    <div className="display-blocks">
+                        <div className="break-block">
+                            <h5 id="break-label">Break Length</h5>
+                            <div className="break-time">
+                                <span id="break-increment"
+                                    onClick={() =>
+                                        this.updateBreakLength("inc")
+                                    }> + </span>
+                                <span id="break-length">{breakLength}</span>
+                                <span id="break-decrement"
+                                    onClick={() =>
+                                        this.updateBreakLength("dec")
+                                    }> - </span>
+                            </div>
+                        </div>
+                        <div className="session-block">
+                            <h5 id="session-label">Session Length</h5>
+                            <div className="session-time">
+                                <span
+                                    id="session-increment"
+                                    onClick={() =>
+                                        this.updateSessionLength("inc")
+                                    }> + </span>
+                                <span id="session-length">{sessionLength}</span>
+                                <span
+                                    id="session-decrement"
+                                    onClick={() =>
+                                        this.updateSessionLength("dec")
+                                    }> - </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="timer">
+                        <h3 id="timer-label">
+                            {currentLoop === "session" ? "Session" : "Break"}
+                        </h3>
+                        <h1 id="time-left">{this.formatTimeLeft(timeLeft)}</h1>
+                        <span id="start_stop" onClick={() => this.toggleTimer()}>
+                            {
+                                isClockTicking ?
+                                    (<i class="fa fa-pause" aria-hidden="true"></i>) :
+                                    (<i class="fa fa-play" aria-hidden="true"></i>)
+                            }
+                        </span>
+                        <span id="reset" onClick={this.resetClickHandler}>
+                            <i className="fa fa-undo" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <audio
+                        id="beep"
+                        preload="auto"
+                        src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+                        ref={(audio) => {
+                            this.audioBeep = audio;
+                        }}
+                    />
+                </div>
+                <div className="footer">
+                    <div className="copyrights">&copy;&nbsp; Shubham Tiwari 2020</div>
+                    <div className="links">
+                        <a
+                            class="fa fa-github link-icon"
+                            aria-hidden="true"
+                            href="https://github.com/STiwari1097"
+                            target="_blank"
+                            ></a>
+                        <a
+                            class="fa fa-codepen link-icon"
+                            aria-hidden="true"
+                            href="https://codepen.io/_STiwari"
+                            target="_blank"
+                            ></a>
+                        <a class="fa fa-linkedin link-icon" aria-hidden="true"></a>
+                    </div>
+                </div>
+            </>
+        );
+    }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
